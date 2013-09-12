@@ -4,7 +4,7 @@ end
 
 def print_file_size
 	File.open(ARGV[0]).each_line do |line|
-		puts file_size(line)
+		puts File.stat(line.chomp).size
 	end
 end
 

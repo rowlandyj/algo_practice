@@ -1,25 +1,14 @@
-def prepare_string(string)
-	string = string.downcase.gsub(/\W/,'')
-	string.split('')
-end
-
-def assign_char_values(arr)
-	char_by_count = arr.sort_by {|x| arr.count(x) }.reverse.uniq
-	char_values = {}
-	i = 26
-
-	char_by_count.each do |x|
-		char_values[x] = i
-		i -= 1
+def max_beauty(string)
+	char_arr = string.downcase.gsub(/\W/,'').split('')
+	char_freq = char_arr.uniq.map do |c|
+		char_arr.count(c)
+	end
+	beauty_score = 0
+	char_freq.sort.reverse.each_with_index do |x,i|
+		beauty_score += x * (26-i)
 	end
 
-	return char_values
-end
-
-def max_beauty(string)
-	arr = prepare_string(string)
-	char_values = assign_char_values(arr)
-	
+	return beauty_score
 end
 
 def print_max_beauty
@@ -28,5 +17,10 @@ def print_max_beauty
 	end
 end
 
-puts max_beauty('Good luck in the Facebook Hacker Cup this year!
-')
+print_max_beauty
+
+puts max_beauty('Good luck in the Facebook Hacker Cup this year!')
+puts max_beauty('Ignore punctuation, please :)')
+puts max_beauty('ABbCcc')
+puts max_beauty('Sometimes test cases are hard to make up.')
+puts max_beauty('So I just go consult Professor Dalves')
